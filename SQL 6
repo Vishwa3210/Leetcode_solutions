@@ -1,0 +1,2 @@
+SELECT SUM(CASE WHEN viewed_to_completion = 0 THEN 1 else 0  END) * 100.0 / COUNT(viewer_id) AS abandon_view_rate
+FROM tiktok_fct_views;
