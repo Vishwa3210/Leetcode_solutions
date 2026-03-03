@@ -1,0 +1,15 @@
+class Solution:
+    def getMinMax(self, arr):
+        n=len(arr)
+        low=arr[0]
+        high=arr[0]
+        
+        for i in range(n):
+            if arr[i]<low:
+               low=arr[i]
+               
+            elif arr[i]>high:
+                high=arr[i]
+                
+        return[low,high]
+                
