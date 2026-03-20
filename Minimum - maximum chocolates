@@ -1,0 +1,16 @@
+class Solution:
+
+    def findMinDiff(self, arr,M):
+
+        # code here
+        result=float('inf')
+        i=0
+        n=len(arr)
+        if n==0 or M==0:
+            return 0
+            
+        arr.sort()
+        for i in range(n-M+1):
+            diff=arr[i-M+1]-arr[i]
+            result=min(result,diff)
+        return result
