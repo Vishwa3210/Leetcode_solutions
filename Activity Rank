@@ -1,0 +1,4 @@
+select from_user as user_id, count(from_user) as total_emails, rank() over ( order by count(*) desc, from_user asc ) as rnk
+from google_gmail_emails
+group by from_user
+order by total_emails desc;
