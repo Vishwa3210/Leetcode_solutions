@@ -1,0 +1,6 @@
+select c.first_name, c.last_name, t2.order_date, t2.total_money
+from customers c
+left join
+(select cust_id,order_date,sum(total_order_cost) as total_money, rank () over (partition by order_date order by sum(total_order_cost) desc) as rnk from orders WHERE order_date BETWEEN '2019-02-01' AND '2019-05-01' group by cust_id, order_date) as t2
+on c.id=t2.cust_id
+where rnk=1;
