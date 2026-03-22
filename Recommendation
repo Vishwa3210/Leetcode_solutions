@@ -1,0 +1,11 @@
+select f.user_id, p.page_id 
+from users_friends f
+left join users_pages p
+on f.friend_id=p.user_id
+where not exists(
+ select 1 
+ from users_pages pf
+ where pf.user_id = f.user_id
+ and pf.page_id = p.page_id
+
+)
