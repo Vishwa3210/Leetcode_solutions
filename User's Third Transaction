@@ -1,0 +1,5 @@
+SELECT user_id,spend,transaction_date FROM
+(SELECT user_id, 
+rank () over (partition by user_id order by transaction_date) as rnk, spend, transaction_date 
+FROM transactions) t
+where rnk=3;
