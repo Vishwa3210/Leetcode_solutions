@@ -1,0 +1,12 @@
+with user_pay as(select * from ms_user_dimension a left join ms_acc_dimension b on a.acc_id=b.acc_id )
+select d.date,count( case when u.paying_customer='no' then d.downloads else 1 end) as ndown,
+count( case when u.paying_customer='yes' then  d.downloads else 1 end) as down
+
+from user_pay u
+join ms_download_facts d
+on u.user_id=d.user_id
+group by d.date
+having 
+sum( case when u.paying_customer='no' then d.downloads else 1 end)>sum( case when u.paying_customer='yes' then  d.downloads else 1 end)
+order by d.date;
+
