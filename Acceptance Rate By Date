@@ -1,0 +1,8 @@
+with send_req as(select * from fb_friend_requests where action='sent'),
+acc_req as (select * from fb_friend_requests where action='accepted')
+select s.date, count(a.user_id_receiver)*1.0/count(s.user_id_sender) as percentage_acceptance
+from send_req s
+left join acc_req a
+on s.user_id_sender=a.user_id_sender
+and s.user_id_receiver =a.user_id_receiver
+group by s.date
