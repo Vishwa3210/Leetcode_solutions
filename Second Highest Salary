@@ -1,0 +1,5 @@
+SELECT max(salary) as second_highest_salary
+from employee 
+where salary not in (
+  select max(salary) from employee
+);
