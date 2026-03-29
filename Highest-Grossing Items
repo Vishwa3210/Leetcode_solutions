@@ -1,0 +1,10 @@
+with products_s as( SELECT category,product,sum(spend) as total_spend FROM product_spend
+where transaction_date BETWEEN '2022-01-01' and '2022-12-31' group by category,product), 
+ranked as(select *,rank() over  (partition by category order by total_spend desc )
+as rnk from products_s )
+
+select category,product, total_spend
+from ranked
+where rnk<=2
+
+;
