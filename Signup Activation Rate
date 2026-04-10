@@ -1,0 +1,5 @@
+SELECT round( count(distinct case when t.signup_action='Confirmed' then e.email_id end)*1.0 / count(distinct e.email_id),2)
+as signup_action
+from emails e 
+left join texts t 
+on e.email_id=t.email_id
