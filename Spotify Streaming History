@@ -1,0 +1,7 @@
+select user_id, song_id,sum(song_plays) as song_count from
+(select user_id, song_id, song_plays from songs_history union ALL
+select user_id, song_id, count(song_id) as song_plays from songs_weekly
+where listen_time<='08/04/2022 23:59:59'
+group by user_id,song_id) as report
+group by user_id,song_id
+order by song_count desc
