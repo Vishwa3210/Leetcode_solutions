@@ -1,0 +1,21 @@
+with high as(SELECT ticker, to_char(date,'Mon-yyyy') as highest_mth,
+max(open) as highest_open,
+row_number() over(partition by ticker order by open desc) as row_num
+from stock_prices
+group by ticker,open,to_char(date,'Mon-yyyy')
+),
+low as (
+select ticker, to_char(date,'Mon-yyyy') as lowest_mth, min(open) as lowest_open,
+row_number() over(partition by ticker order by open) as row_num
+from stock_prices
+group by ticker, to_char(date,'Mon-yyyy'),open
+)
+
+select high.ticker,
+high.highest_mth,high.highest_open,low.lowest_mth,low.lowest_open
+from high 
+ join low
+on high.ticker=low.ticker
+and high.row_num=1
+and low.row_num=1
+order by high.ticker;
