@@ -1,0 +1,11 @@
+SELECT category_name,product_name
+from (
+select rank() over (partition by category_name order by sales_quantity desc, rating desc )
+as rnk,
+category_name,product_name 
+from products p 
+join product_sales s 
+on p.product_id=s.product_id
+) as p1
+where rnk=1
+order by category_name
