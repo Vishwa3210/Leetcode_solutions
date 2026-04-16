@@ -1,0 +1,7 @@
+SELECT item_count AS mode
+FROM (
+    SELECT item_count,
+           rank() OVER (ORDER BY order_occurrences DESC) AS rnk
+    FROM items_per_order
+) t
+WHERE rnk = 1;
