@@ -1,0 +1,22 @@
+with f as (select * from (
+select user_id,post_date , rank() over (partition by user_id order by post_date) as rnk
+from posts
+) t
+where rnk =1  and (extract(year from post_date)=2021)
+), 
+l as (select * from (
+select user_id,post_date , rank() over (partition by user_id order by post_date desc) as rnk
+from posts
+) t
+where rnk =1 and (extract(year from post_date)=2021)
+),
+cnt as(select user_id, count(user_id) as c from posts where (extract(year from post_date)=2021) group by user_id)
+select f.user_id,
+       l.post_date::date - f.post_date::date AS days_between
+from f
+join l
+  on f.user_id = l.user_id
+join cnt 
+  on l.user_id=cnt.user_id
+where cnt.c>1 
+order by user_id desc;
