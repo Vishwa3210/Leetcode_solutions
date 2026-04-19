@@ -1,0 +1,8 @@
+select count(distinct company_id) as duplicate_companies from
+(SELECT j.company_id, 
+    j.title, 
+    j.description,count(j.job_id) as duplicate_companies1 FROM job_listings j
+group by j.company_id,j.title, j.description) as t 
+
+where duplicate_companies1>1
+;
