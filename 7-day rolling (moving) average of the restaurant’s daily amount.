@@ -1,0 +1,19 @@
+SELECT 
+    restaurant_id,
+    order_date,
+    daily_amount,
+    ROUND(
+        AVG(daily_amount) OVER (
+            PARTITION BY restaurant_id
+            ORDER BY order_date
+            ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
+        ), 2
+    ) AS avg_7_day
+FROM (
+    SELECT 
+        restaurant_id,
+        order_date,
+        SUM(amount) AS daily_amount
+    FROM orders
+    GROUP BY restaurant_id, order_date
+) t;
