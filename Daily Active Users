@@ -1,0 +1,4 @@
+select platform,created_at,count(user_id) as daily_users
+from events
+where extract(year from created_at)="2020"
+group by created_at,platform
