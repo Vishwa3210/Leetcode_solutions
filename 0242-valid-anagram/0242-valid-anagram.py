@@ -6,7 +6,11 @@ class Solution:
             return False
 
         for i in s:
-            counter[i]=counter.get(i,0)+1
+            if i in counter:
+                counter[i]=counter.get(i)+1
+            else:
+                counter[i]=1
+            
 
         for i in t:
             if i not in counter or counter[i]==0:
