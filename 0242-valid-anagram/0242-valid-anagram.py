@@ -7,7 +7,7 @@ class Solution:
 
         for i in s:
             if i in counter:
-                counter[i]=counter.get(i)+1
+                counter[i]=counter[i]+1
             else:
                 counter[i]=1
             
