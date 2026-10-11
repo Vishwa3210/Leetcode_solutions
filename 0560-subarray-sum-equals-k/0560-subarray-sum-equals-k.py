@@ -12,7 +12,10 @@ class Solution:
             if minus in numsMap:
                 count=count+numsMap[minus]
 
-            numsMap[current_sum]=numsMap.get(current_sum,0)+1
+            if current_sum in numsMap:
+                numsMap[current_sum] = numsMap[current_sum] + 1
+            else:
+                numsMap[current_sum] = 1
         return count
 
        
