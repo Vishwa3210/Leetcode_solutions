@@ -14,7 +14,7 @@ class Solution(object):
                 break
 
             else:
-                if i>0 and nums1[i]>nums2[j]:
+                if i>=0 and nums1[i]>nums2[j]:
                     nums1[num]=nums1[i]
                     i-=1
                    
@@ -26,5 +26,5 @@ class Solution(object):
 
             
 
-        return nums1.sort()
+        return nums1
 
